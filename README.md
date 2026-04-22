@@ -1,3 +1,10 @@
-<h1> Read me </h1>
+# Affine Schubert
 
-Hello.
+This repository contains two Macaulay2 scripts: 
+
+- affGrSchubert.m2 computes Schubert varieties inside the Affine Grassmannian for GLn. 
+- affSpringer.m2 computes affine Springer loci inside these Schubert varieties.
+
+---
+
+
