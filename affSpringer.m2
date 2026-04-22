@@ -11,7 +11,7 @@ load "affGrSchubert.m2"
 --     Returns (J, f) where:
 --       J = ideal in A = ((ring I) / I)[y_(i,j,k), pi_1, ..., pi_(e-1)],
 --           cutting out the closed locus where the connection
---               nabla = N(u) + (u-pi_1)...(u-pi_(e-1)) * u * d/du
+--           nabla = N(u) + (u-pi_1)...(u-pi_(e-1)) * u * d/du
 --           preserves the tautological lattice on the affine open chart of
 --           Gr_{<= lam} around u^mu,
 --       f = the tautological frame over A, obtained from the open
