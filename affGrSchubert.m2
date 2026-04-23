@@ -90,7 +90,7 @@ schubertGLn = (n, lam) -> (
     var := apply(Slist, I -> p_(toSequence I));
     Grass := F[var, symbol h,
                 Degrees => toList apply(var, i -> {1}) | {{1}}];
-    use Grass;
+    hGrass := h_Grass;
 
     -- Warn for large Plucker spaces
     pluckerCount := binomial(nN, D);
@@ -105,7 +105,7 @@ schubertGLn = (n, lam) -> (
                         toList(0..d-1)))
                 | {1_R}});
     f := map(R, Grass, v);
-    K := homogenize(ker f, h);
+    K := homogenize(ker f, hGrass);
 
     K
 );
