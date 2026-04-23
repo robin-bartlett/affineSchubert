@@ -44,11 +44,6 @@ adjugateMatrixGLn = M -> (
     )
 );
 
--- matrixDerivativeInVariable(M, uVar)
--- Differentiates each entry of M with respect to uVar.
-matrixDerivativeInVariable = (M, uVar) ->
-    matrix table(numrows M, numcols M, (i,j) -> diff(uVar, M_(i,j)));
-
 -------------------------------------------------------------------------------
 -- MAIN FUNCTION 1: openNablaSpringer
 -------------------------------------------------------------------------------
@@ -108,7 +103,7 @@ openNablaSpringer = (n, lam, mu, e) -> (
 
     XA := sub(chartMatrix, SU);
     XAdj := adjugateMatrixGLn(XA);
-    XDeriv := matrixDerivativeInVariable(XA, uA);
+    XDeriv := diff(uA, XA);
 
     Ymat := matrix table(n, n, (i,j) -> (
         if N <= 1 then 0_SU else
