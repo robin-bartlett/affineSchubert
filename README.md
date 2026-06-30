@@ -296,11 +296,3 @@ The four generators are the coefficients of powers below `u^2` in the entries
 of `X^* nabla(X)`. The returned frame `fA` is the base change of the Schubert
 chart frame to the affine Springer coordinate ring.
 
-## Verification
-
-Run the scripts non-interactively with:
-
-```sh
-M2 --script affGrSchubert.m2
-M2 --script affSpringer.m2
-```
