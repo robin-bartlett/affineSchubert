@@ -26,7 +26,7 @@ The file provides two main entry points.
 Input:
 
 - `n`: the rank for `GL_n`.
-- `lam`: a weakly decreasing coweight list of length `n`.
+- `lam`: a decreasing list of integers of length  `n`, interpreted as a dominant coweight of `GL_n`.
 
 The function first normalizes `lam` by subtracting its last entry. It then sets
 `N = lambda_0`, embeds the calculation in the finite quotient
@@ -50,13 +50,10 @@ chart of `Gr_{\le lambda}` around the torus-fixed point `u^mu`.
 Input:
 
 - `n`: the rank for `GL_n`.
-- `lam`: a weakly decreasing coweight list of length `n`.
-- `mu`: a weakly decreasing nonnegative coweight list of length `n`.
+- `lam`: a decreasing list of integers of length  `n`.
+- `mu`: a decreasing list of integers of length  `n`.
 
-The function requires:
-
-- `sum mu == sum lam`.
-- `mu <= lambda` in dominance order.
+The function requires `mu <= lambda` in dominance order.
 
 The chart is built from the generic loop-group matrix
 
@@ -172,17 +169,3 @@ corresponding to `E e_0` and `E e_1`. Rows are ordered as
 
 The entry `-x_(1,1,0)` appears because the chart ideal contains
 `x_(0,0,0) + x_(1,1,0)`.
-
-## Verification
-
-Run the Schubert script non-interactively with:
-
-```sh
-M2 --script affGrSchubert.m2
-```
-
-In this local Macaulay2 installation, `M2 --stop --script affGrSchubert.m2`
-is rejected because `--script` must be the first option, and
-`M2 --script --stop affGrSchubert.m2` is interpreted as loading a file named
-`--stop`.
-
