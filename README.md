@@ -6,7 +6,7 @@ Grassmannian for `GL_n`.
 - `affGrSchubert.m2` computes Schubert varieties and affine Schubert charts.
 - `affSpringer.m2` computes affine Springer loci inside those Schubert charts.
 
-The base field in the scripts is `QQ`.
+The base field `F` can be changed in `affGrSchubert.m2`.
 
 ## `affGrSchubert.m2`
 
