@@ -20,7 +20,7 @@ The file has two main functions.
 
 ### `schubertGLn(n, lam)`
 
-`schubertGLn(n, lam)` returns the homogeneous ideal of the Schubert variety
+This returns the homogeneous ideal of the Schubert variety
 `Gr_{\le lambda}` in Plucker coordinates.
 
 Input:
@@ -44,7 +44,7 @@ homogenizing variable `h`.
 
 ### `openSchubertGLn(n, lam, mu)`
 
-`openSchubertGLn(n, lam, mu)` returns the ideal cutting out the affine open
+This returns the ideal cutting out the affine open
 chart of `Gr_{\le lambda}` around the torus-fixed point `u^mu`.
 
 Input:
