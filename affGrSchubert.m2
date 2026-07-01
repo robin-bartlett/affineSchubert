@@ -11,7 +11,8 @@
 -- (2) openSchubertGLn(n, lam, mu)
 --     Returns I, the ideal defining the open cell of Gr_lam around u^mu.
 --     The companion function openSchubertChartDataGLn additionally returns
---     the chart data and the tautological frame f described below.
+--     the chart data, the tautological frame f, and quotient map g described
+--     below.
 --     Uses exterior-power divisibility on a generic loop-group matrix.
 --
 
@@ -125,7 +126,7 @@ schubertGLn = (n, lam) -> (
 --
 -- More, specifically:
 --
--- openSchubertChartDataGLn(n, lam, mu) returns (R, S, uVar, E, I, f) where:
+-- openSchubertChartDataGLn(n, lam, mu) returns (R, S, uVar, E, I, f, g) where:
 --   R    = F[x_(i,j,r)], the coordinate ring of the chart,
 --   S    = R[u],
 --   uVar = the polynomial variable u in S,
@@ -138,6 +139,9 @@ schubertGLn = (n, lam) -> (
 --          the restriction to Spec(Q) \subet Gr_{\leq \lam} of the 
 --          map S -> F[u]^n / u^N F[u]^N \otimes_F O_{Gr_\leq lam} of vector 
 --          vector bundles, where S is the tautological bundle on Gr_{\leq \lam}.
+--   g    = the D x nN matrix over Q for the quotient map
+--          F[u]^n / u^N F[u]^n -> coker(f), written in the explicit quotient
+--          basis {u^r e_i : 0 <= r < mu_i}, where D = sum mu.
 --
 -- openSchubertGLn(n lam, mu) returns the ideal I in 
 -- openSchubertChartDataGLn(n, lam, mu).
@@ -211,10 +215,58 @@ openSchubertChartDataGLn = (n, lam, mu) -> (
         ))
     ));
 
-    (R, S, uVar, E, I, f)
+    -- Build the quotient map g using the explicit basis
+    -- {u^r e_i : 0 <= r < mu_i} of coker(f).
+    basisList := flatten apply(n, i -> apply(mu#i, r -> (i, r)));
+    basisRows := apply(basisList, b -> b#0 * N + b#1);
+    D := #basisRows;
+
+    -- Order the relations by descending u-shift. With this ordering, the
+    -- pivot block is unipotent triangular, so its inverse is a finite
+    -- nilpotent series rather than a general module computation.
+    degreeList := if N == 0 then {} else reverse toList(0..N-1);
+    relList := flatten apply(degreeList, k ->
+                   flatten apply(n, j ->
+                       if k < N - mu#j then {(j, k)} else {}));
+    pivotRows := apply(relList, rel -> rel#0 * N + mu#(rel#0) + rel#1);
+    relCols := if #relList == 0 then {} else toList(0..#relList-1);
+    h := matrix apply(n * N, row -> (
+        i := row // N;
+        r := row % N;
+        apply(relList, rel -> (
+            j := rel#0;
+            k := rel#1;
+            if r < k then 0_Q else sub(coefficient(uVar^(r-k), E_(i,j)), Q)
+        ))
+    ));
+
+    qPivot := if #relList == 0 then map(Q^D, Q^0, 0) else (
+        pivotBlock := submatrix(h, pivotRows, relCols);
+        basisBlock := submatrix(h, basisRows, relCols);
+        pivotBlockInverse := id_(Q^(#relList));
+        nilpotentPart := pivotBlock - pivotBlockInverse;
+        nilpotentPower := pivotBlockInverse;
+        for m from 1 to #relList - 1 do (
+            nilpotentPower = nilpotentPower * nilpotentPart;
+            pivotBlockInverse = pivotBlockInverse + (-1)^m * nilpotentPower;
+        );
+        - basisBlock * pivotBlockInverse
+    );
+
+    g := matrix apply(D, qRow -> apply(n * N, ambientRow -> (
+        basisPos := position(basisRows, rowIndex -> rowIndex == ambientRow);
+        if basisPos =!= null then (
+            if qRow == basisPos then 1_Q else 0_Q
+        ) else (
+            pivotPos := position(pivotRows, rowIndex -> rowIndex == ambientRow);
+            if pivotPos === null then 0_Q else qPivot_(qRow, pivotPos)
+        )
+    )));
+
+    (R, S, uVar, E, I, f, g)
 );
 
 openSchubertGLn = (n, lam, mu) -> (
-    (R, S, uVar, E, I, f) := openSchubertChartDataGLn(n, lam, mu);
+    (R, S, uVar, E, I, f, g) := openSchubertChartDataGLn(n, lam, mu);
     I
 );

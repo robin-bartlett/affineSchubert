@@ -71,7 +71,7 @@ u^(lambda_(n-j) + ... + lambda_(n-1)).
 The companion function `openSchubertChartDataGLn(n, lam, mu)` returns more data:
 
 ```m2
-(R, S, uVar, E, I, f)
+(R, S, uVar, E, I, f, g)
 ```
 
 where:
@@ -83,6 +83,8 @@ where:
 - `I` is the Schubert chart ideal in `R`.
 - `f` is the tautological frame over `R/I`, expressed in
   `F[u]^n / u^N F[u]^n`.
+- `g` is the quotient map `F[u]^n / u^N F[u]^n -> coker(f)` over `R/I`,
+  written in the explicit quotient basis `u^r e_i` for `0 <= r < mu_i`.
 
 ## Example: `n = 2`, `lam = (2,0)`, `mu = (1,1)`
 
@@ -96,7 +98,7 @@ lam = {2, 0};
 mu = {1, 1};
 
 K = schubertGLn(n, lam);
-(R, S, uVar, E, I, f) = openSchubertChartDataGLn(n, lam, mu);
+(R, S, uVar, E, I, f, g) = openSchubertChartDataGLn(n, lam, mu);
 ```
 
 For the global Schubert variety, `lambda` is already normalized, so:
@@ -295,4 +297,3 @@ With these abbreviations, the ideal `J` returned by
 The four generators are the coefficients of powers below `u^2` in the entries
 of `X^* nabla(X)`. The returned frame `fA` is the base change of the Schubert
 chart frame to the affine Springer coordinate ring.
-

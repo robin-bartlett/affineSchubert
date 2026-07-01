@@ -75,7 +75,7 @@ openNablaSpringer = (n, lam, mu, e) -> (
         error("openNablaSpringer: degenerate case, d = " | toString d);
 
     -- Build the open Schubert chart and the tautological frame.
-    (chartR, chartS, uVar, chartMatrix, I, f) := openSchubertChartDataGLn(n, lam, mu);
+    (chartR, chartS, uVar, chartMatrix, I, f, g) := openSchubertChartDataGLn(n, lam, mu);
     chartQ := chartR / I;
 
     -- Extend the chart by the connection coefficients and marked points.
