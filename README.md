@@ -16,7 +16,7 @@ Load the file in Macaulay2 with:
 load "affGrSchubert.m2"
 ```
 
-The file provides two main entry points.
+The file has two main functions.
 
 ### `schubertGLn(n, lam)`
 
