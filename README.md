@@ -81,10 +81,8 @@ where:
 - `uVar` is the variable `u` in `S`.
 - `E` is the generic loop matrix.
 - `I` is the Schubert chart ideal in `R`.
-- `f` is the tautological frame over `R/I`, expressed in
-  `F[u]^n / u^N F[u]^n`.
-- `g` is the quotient map `F[u]^n / u^N F[u]^n -> coker(f)` over `R/I`,
-  written in the explicit quotient basis `u^r e_i` for `0 <= r < mu_i`.
+- `f` describes the map of vector bundles `E_univ -> F[u]^n/u^NF[u]^n \otimes R/I` where `E_univ` denotes the universal lattice on the open chart `R/I`.
+- `g` is the quotient map `F[u]^n / u^N F[u]^n \otimes R/I -> coker(f)` written in the explicit quotient basis `u^r e_i` for `0 <= r < mu_i`.
 
 ## Example: `n = 2`, `lam = (2,0)`, `mu = (1,1)`
 
